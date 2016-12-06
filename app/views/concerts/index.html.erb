@@ -151,13 +151,13 @@
         <td>
           <% if concert.user.present? %>
             <a href="/users/<%= concert.user.id %>">
-              <%= concert.user.email %>
+              <%= concert.user.username %>
             </a>
           <% end %>
         </td>
         <td>
           <a href="/concerts/<%= concert.id %>" class="btn btn-primary">Show</a>
-          
+
           <% if current_user == concert.user %>
             <a href="/concerts/<%= concert.id %>/edit" class="btn btn-warning">Edit</a>
             <a href="/delete_concert/<%= concert.id %>" class="btn btn-danger" rel="nofollow">Delete</a>
