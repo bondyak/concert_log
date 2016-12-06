@@ -1,0 +1,58 @@
+<div class="page-header">
+  <h3>User #<%= @user.id %></h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12 mb-2">
+    <dl class="dl-horizontal">
+      <dt>Email</dt>
+      <dd><%= @user.email %></dd>
+
+      <dt>Password</dt>
+      <dd><%= @user.password %></dd>
+
+      <dt>Username</dt>
+      <dd><%= @user.username %></dd>
+
+    </dl>
+
+    <div class="btn-group btn-group-justified">
+      <a href="/users" class="btn btn-primary">
+        Back
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- A User has many concerts -->
+
+<div class="row">
+  <div class="col-md-12">
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-info">
+        Concerts
+      </li>
+
+      <% @user.concerts.each do |concert| %>
+        <li class="list-group-item">
+          <a href="/concerts/<%= concert.id %>">
+            <%= concert.date %>
+          </a>
+          <div class="btn-group btn-group-xs pull-right">
+            <a href="/concerts/<%= concert.id %>" class="btn btn-primary">
+              <i class="fa fa-search-plus"></i>
+            </a>
+            <%if current_user == concert.user %>
+              <a href="/concerts/<%= concert.id %>/edit" class="btn btn-warning">
+                <i class="fa fa-edit"></i>
+              </a>
+              <a href="/delete_concert/<%= concert.id %>" class="btn btn-danger" rel="nofollow">
+                <i class="fa fa-trash-o"></i>
+              </a>
+            <% end %>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>

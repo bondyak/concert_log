@@ -1,0 +1,57 @@
+<div class="page-header">
+  <h3>Concert #<%= @concert.id %></h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12 mb-2">
+    <dl class="dl-horizontal">
+      <dt>Date</dt>
+      <dd><%= @concert.date %></dd>
+
+      <dt>Artist</dt>
+      <dd>
+        <% if @concert.artist.present? %>
+          <a href="/artists/<%= @concert.artist_id %>">
+            <%= @concert.artist.name %>
+          </a>
+        <% end %>
+      </dd>
+
+      <dt>Venue</dt>
+      <dd>
+        <% if @concert.venue.present? %>
+          <a href="/venues/<%= @concert.venue_id %>">
+            <%= @concert.venue.name %>
+          </a>
+        <% end %>
+      </dd>
+
+      <dt>Notes</dt>
+      <dd><%= @concert.notes %></dd>
+
+      <dt>User</dt>
+      <dd>
+        <% if @concert.user.present? %>
+          <a href="/users/<%= @concert.user_id %>">
+            <%= @concert.user.email %>
+          </a>
+        <% end %>
+      </dd>
+
+    </dl>
+
+    <div class="btn-group btn-group-justified">
+      <a href="/concerts" class="btn btn-primary">
+        Back
+      </a>
+      <% if current_user == @concert.user %>
+        <a href="/concerts/<%= @concert.id %>/edit" class="btn btn-warning">
+          Edit
+        </a>
+        <a href="/delete_concert/<%= @concert.id %>" class="btn btn-danger" rel="nofollow">
+          Delete
+        </a>
+      <% end %>
+    </div>
+  </div>
+</div>
