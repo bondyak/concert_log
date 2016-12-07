@@ -31,7 +31,7 @@ class ConcertsController < ApplicationController
   def create
     @concert = Concert.new
 
-    @concert.date = params[:date]
+    @concert.date = Chronic.parse(params[:date])
     @concert.artist_id = params[:artist_id]
     @concert.venue_id = params[:venue_id]
     @concert.notes = params[:notes]

@@ -4,7 +4,7 @@ class CreateVenues < ActiveRecord::Migration
       t.string :name
       t.string :location
       t.string :notes
-
+      
       t.timestamps
 
     end
