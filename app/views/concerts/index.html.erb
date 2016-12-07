@@ -19,7 +19,7 @@
 
       <% @concerts.each do |concert| %>
       <tr>
-        <td><%= concert.date %></td>
+        <td><%= concert.date.strftime('%B %e, %Y') %></td>
         <td>
           <% if concert.artist.present? %>
             <a href="/artists/<%= concert.artist.id %>">
@@ -35,7 +35,7 @@
           <% end %>
         </td>
         <td><%= concert.notes %></td>
-        
+
         <td>
           <a href="/concerts/<%= concert.id %>" class="btn btn-primary">Show</a>
 

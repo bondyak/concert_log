@@ -18,7 +18,7 @@
       <% @artists.each do |artist| %>
       <tr>
         <td><%= artist.name %></td>
-        <td><img src="<%= artist.image %>" class="img-responsive"></td>
+        <td><img src="<%= artist.image %>" height="200px"></td>
         <td><%= artist.notes %></td>
         <td>
           <a href="/artists/<%= artist.id %>" class="btn btn-primary">Show</a>
