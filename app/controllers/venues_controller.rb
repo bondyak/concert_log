@@ -1,14 +1,5 @@
 class VenuesController < ApplicationController
 
-  def address_to_geo(location)
-    require 'open-uri'
-    url = 'http://maps.googleapis.com/maps/api/geocode/json?address=' + URI.encode(location)
-    parsed_data = JSON.parse(open(url).read)
-    lat = parsed_data["results"][0]["geometry"]["location"]["lat"]
-    lng = parsed_data["results"][0]["geometry"]["location"]["lng"]
-    return [lat,lng]
-  end
-
   def index
     @q = Venue.ransack(params[:q])
     @venues = @q.result(:distinct => true).includes(:concerts).page(params[:page]).per(10)
@@ -54,6 +45,15 @@ class VenuesController < ApplicationController
     else
       render("venues/new.html.erb")
     end
+  end
+
+  def address_to_geo(location)
+    require 'open-uri'
+    url = 'http://maps.googleapis.com/maps/api/geocode/json?address=' + URI.encode(location)
+    parsed_data = JSON.parse(open(url).read)
+    lat = parsed_data["results"][0]["geometry"]["location"]["lat"]
+    lng = parsed_data["results"][0]["geometry"]["location"]["lng"]
+    return [lat,lng]
   end
 
   def edit
