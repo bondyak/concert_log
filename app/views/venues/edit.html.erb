@@ -8,12 +8,16 @@
   <% end %>
 <% end %>
 
-<div class="page-header">
-  <h3>Edit Venue #<%= @venue.id %></h3>
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <div class="jumbotron">
+      <h3>Edit Venue: <%= @venue.name %></h3>
+    </div>
+  </div>
 </div>
 
 <div class="row">
-  <div class="col-md-12">
+  <div class="col-md-8 col-md-offset-2">
     <form action="/update_venue/<%= @venue.id %>" method="post">
       <!-- Hidden input for authenticity token to protect from forgery -->
       <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
