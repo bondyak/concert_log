@@ -1,137 +1,150 @@
 <style>
 #map {
-  width: 500px;
-  height: 400px;
+  width: 750px;
+  height: 350px;
 }
 </style>
 
-<div class="page-header">
-  <h3><%= @venue.name %></h3>
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <div class="jumbotron">
+      <h3><%= @venue.name %></h3>
+    </div>
+  </div>
 </div>
 
 <div class="row">
-  <div class="col-md-12 mb-2">
-    <dl class="dl-horizontal">
-      <dd><div id="map"></div></dd>
-      <dd><%= @venue.notes %></dd>
-    </dl>
-
+  <div class="col-md-8 col-md-offset-2">
+    <div id="map">
+    </div>
+    <p></p>
     <div class="btn-group btn-group-justified">
       <a href="/venues" class="btn btn-primary">
-        Back
+        <i class="fa fa-chevron-left"></i>
       </a>
       <a href="/venues/<%= @venue.id %>/edit" class="btn btn-warning">
-        Edit
+        <i class="fa fa-edit"></i>
       </a>
       <a href="/delete_venue/<%= @venue.id %>" class="btn btn-danger" rel="nofollow">
-        Delete
+        <i class="fa fa-trash-o"></i>
       </a>
     </div>
   </div>
 </div>
 
 <!-- A Venue has many concerts -->
-
+<hr>
 <div class="row">
-  <div class="col-md-12">
+  <div class="col-md-8 col-md-offset-2">
     <ul class="list-group">
       <li class="list-group-item list-group-item-info">
         Concerts
       </li>
 
       <% @venue.concerts.each do |concert| %>
-        <li class="list-group-item">
-          <a href="/concerts/<%= concert.id %>">
-            <%= concert.date %>
+      <li class="list-group-item">
+        <a href="/artists/<%= concert.artist.id %>">
+          <%= concert.artist.name %>
+        </a>
+        <div class="btn-group btn-group-xs pull-right">
+          <a href="/concerts/<%= concert.id %>" class="btn btn-primary">
+            <i class="fa fa-search-plus"></i>
           </a>
-          <div class="btn-group btn-group-xs pull-right">
-            <a href="/concerts/<%= concert.id %>" class="btn btn-primary">
-              <i class="fa fa-search-plus"></i>
-            </a>
-            <a href="/concerts/<%= concert.id %>/edit" class="btn btn-warning">
-              <i class="fa fa-edit"></i>
-            </a>
-            <a href="/delete_concert/<%= concert.id %>" class="btn btn-danger" rel="nofollow">
-              <i class="fa fa-trash-o"></i>
-            </a>
-          </div>
-        </li>
+          <a href="/concerts/<%= concert.id %>/edit" class="btn btn-warning">
+            <i class="fa fa-edit"></i>
+          </a>
+          <a href="/delete_concert/<%= concert.id %>" class="btn btn-danger" rel="nofollow">
+            <i class="fa fa-trash-o"></i>
+          </a>
+        </div>
+      </li>
       <% end %>
 
       <li class="list-group-item">
         <form action="/create_concert" method="post">
-      <!-- Hidden input for authenticity token to protect from forgery -->
-      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+          <!-- Hidden input for authenticity token to protect from forgery -->
+          <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
 
-      <!-- Label and input for date -->
-      <div class="form-group">
-        <label for="date" class="control-label">
-          Date
-        </label>
+          <!-- Label and input for date -->
+          <div class="form-group">
+            <label for="date" class="control-label">
+              Date
+            </label>
 
-        <input type="text" id="date" name="date" placeholder="Date" class="form-control" value="">
-      </div>
+            <div class='input-group date' id='datetimepicker1'>
+              <input type='text' class="form-control" name="date" id="date" placeholder="Date">
+              <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+              </span>
+            </div>
+          </div>
 
-      <!-- Label and input for artist_id -->
-      <div class="form-group">
-        <label for="artist_id" class="control-label">
-          Artist
-        </label>
+          <!-- Label and input for artist_id -->
+          <div class="form-group">
+            <label for="artist_id" class="control-label">
+              Artist
+            </label>
 
-        <%= select_tag(:artist_id, options_from_collection_for_select(Artist.all, :id, :name), :class => "form-control") %>
-      </div>
+            <%= select_tag(:artist_id, options_from_collection_for_select(Artist.all, :id, :name), :class => "form-control") %>
+          </div>
 
-      <!-- Label and input for venue_id -->
-      <input type="hidden" name="venue_id" value="<%= @venue.id %>">
+          <!-- Label and input for venue_id -->
+          <input type="hidden" name="venue_id" value="<%= @venue.id %>">
 
-      <!-- Label and input for notes -->
-      <div class="form-group">
-        <label for="notes" class="control-label">
-          Notes
-        </label>
+          <!-- Label and input for notes -->
+          <div class="form-group">
+            <label for="notes" class="control-label">
+              Notes
+            </label>
 
-        <input type="text" id="notes" name="notes" placeholder="Notes" class="form-control" value="">
-      </div>
+            <input type="text" id="notes" name="notes" placeholder="Notes" class="form-control" value="">
+          </div>
 
-      <!-- Label and input for user_id -->
-      <input type="hidden" name="user_id" value="<%= current_user.id %>">
+          <!-- Label and input for user_id -->
+          <input type="hidden" name="user_id" value="<%= current_user.id %>">
 
-      <button class="btn btn-block btn-success">
-        Create Concert
-      </button>
-    </form>
+          <button class="btn btn-block btn-success">
+            Create Concert
+          </button>
+        </form>
       </li>
     </ul>
   </div>
 </div>
 
 
-  <script>
-  function initMap() {
-    var mapDiv = document.getElementById('map');
-    var map = new google.maps.Map(mapDiv, {
-      center: {lat: <%= @venue.lat %>, lng: <%= @venue.lng %>},
-      zoom: 14
-    });
+<script>
+function initMap() {
+  var mapDiv = document.getElementById('map');
+  var map = new google.maps.Map(mapDiv, {
+    center: {lat: <%= @venue.lat %>, lng: <%= @venue.lng %>},
+    zoom: 14
+  });
 
 
-    var infowindow = new google.maps.InfoWindow({
-      content: "<h5><%= @venue.name %></h5>" +
-              "<p><%= @venue.location %></p>"
-    });
+  var infowindow = new google.maps.InfoWindow({
+    content: "<h5><%= @venue.name %></h5>" +
+    "<p><%= @venue.location %></p>"
+  });
 
-    var marker = new google.maps.Marker({
-      position: {lat: <%= @venue.lat %>, lng: <%= @venue.lng %>},
-      map: map,
-      title: '<%= @venue.name %>',
-      icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
-    });
+  var marker = new google.maps.Marker({
+    position: {lat: <%= @venue.lat %>, lng: <%= @venue.lng %>},
+    map: map,
+    title: '<%= @venue.name %>',
+    icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
+  });
 
-    marker.addListener('click', function() {
-      infowindow.open(map, marker);
-    });
+  marker.addListener('click', function() {
+    infowindow.open(map, marker);
+  });
 
-  };
+};
 
-  </script>
-  <script src="https://maps.googleapis.com/maps/api/js?callback=initMap" async defer></script>
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?callback=initMap" async defer></script>
+
+<script type="text/javascript">
+  $(function () {
+    $('#datetimepicker1').datetimepicker();
+  });
+</script>
