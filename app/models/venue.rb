@@ -6,7 +6,7 @@ class Venue < ApplicationRecord
   # Indirect associations
 
   # Validations
-  validates :name, :presence => true, :uniqueness => { :scope => :location}
+  validates :name, :presence => true, :uniqueness => true
   validates :location, :presence => true
-  
+
 end

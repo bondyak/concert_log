@@ -27,9 +27,11 @@ class VenuesController < ApplicationController
     @venue.location = params[:location]
     @venue.notes = params[:notes]
 
+    if @venue.name.present? && @venue.location.present?
     latlng = address_to_geo(params[:location])
     @venue.lat = latlng[0]
     @venue.lng = latlng[1]
+    end
 
     save_status = @venue.save
 
