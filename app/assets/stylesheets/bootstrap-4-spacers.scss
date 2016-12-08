@@ -1,3 +1,23 @@
+.crop {
+ height: 200px;
+ width: 250px;
+ overflow: hidden;
+}
+.crop img {
+ height: auto;
+ width: 250px;
+}
+
+.scrop {
+ height: 450px;
+ width: 750px;
+ overflow: hidden;
+}
+.scrop img {
+ height: auto;
+ width: 750px;
+}
+
 .pt-0 {
   padding-top: 0;
 }

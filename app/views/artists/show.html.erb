@@ -8,7 +8,9 @@
 
 <div class="row">
   <div class="col-md-8 col-md-offset-2">
-    <img src="<%= @artist.image %>" class="img-responsive">
+
+    <img src="<%= @artist.image %>" class="scrop">
+
     <p></p>
     <div class="btn-group btn-group-justified">
       <a href="/artists" class="btn btn-primary">
@@ -37,6 +39,10 @@
       <% @artist.concerts.each do |concert| %>
         <li class="list-group-item">
           <a href="/concerts/<%= concert.id %>">
+            <%= concert.date.strftime('%B %e, %Y') %>
+          </a>
+          -
+          <a href="/venues/<%= concert.venue.id %>">
             <%= concert.venue.name %>
           </a>
           <div class="btn-group btn-group-xs pull-right">
