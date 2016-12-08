@@ -1,39 +1,34 @@
-<div class="page-header">
-  <h3>Artist #<%= @artist.id %></h3>
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <div class="jumbotron">
+      <h3><%= @artist.name %></h3>
+    </div>
+  </div>
 </div>
 
 <div class="row">
-  <div class="col-md-12 mb-2">
-    <dl class="dl-horizontal">
-      <dt>Name</dt>
-      <dd><%= @artist.name %></dd>
-
-      <dt>Image</dt>
-      <dd><img src="<%= @artist.image %>"></dd>
-
-      <dt>Notes</dt>
-      <dd><%= @artist.notes %></dd>
-
-    </dl>
-
+  <div class="col-md-8 col-md-offset-2">
+    <img src="<%= @artist.image %>" class="img-responsive">
+    <p></p>
     <div class="btn-group btn-group-justified">
       <a href="/artists" class="btn btn-primary">
-        Back
+        <i class="fa fa-chevron-left"></i>
       </a>
       <a href="/artists/<%= @artist.id %>/edit" class="btn btn-warning">
-        Edit
+        <i class="fa fa-edit"></i>
       </a>
       <a href="/delete_artist/<%= @artist.id %>" class="btn btn-danger" rel="nofollow">
-        Delete
+        <i class="fa fa-trash-o"></i>
       </a>
     </div>
   </div>
 </div>
 
+<hr>
 <!-- A Artist has many concerts -->
 
 <div class="row">
-  <div class="col-md-12">
+  <div class="col-md-8 col-md-offset-2">
     <ul class="list-group">
       <li class="list-group-item list-group-item-info">
         Concerts
@@ -42,7 +37,7 @@
       <% @artist.concerts.each do |concert| %>
         <li class="list-group-item">
           <a href="/concerts/<%= concert.id %>">
-            <%= concert.date %>
+            <%= concert.venue.name %>
           </a>
           <div class="btn-group btn-group-xs pull-right">
             <a href="/concerts/<%= concert.id %>" class="btn btn-primary">
@@ -69,7 +64,12 @@
           Date
         </label>
 
-        <input type="text" id="date" name="date" placeholder="Date" class="form-control" value="">
+        <div class='input-group date' id='datetimepicker1'>
+          <input type='text' class="form-control" name="date" id="date" placeholder="Date">
+          <span class="input-group-addon">
+            <span class="glyphicon glyphicon-calendar"></span>
+          </span>
+        </div>
       </div>
 
       <!-- Label and input for artist_id -->
@@ -104,3 +104,9 @@
     </ul>
   </div>
 </div>
+
+<script type="text/javascript">
+  $(function () {
+    $('#datetimepicker1').datetimepicker();
+  });
+</script>

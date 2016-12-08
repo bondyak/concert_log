@@ -8,12 +8,16 @@
   <% end %>
 <% end %>
 
-<div class="page-header">
-  <h3>Edit Artist #<%= @artist.id %></h3>
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <div class="jumbotron">
+      <h3>Edit Artist: <%= @artist.name %></h3>
+    </div>
+  </div>
 </div>
 
 <div class="row">
-  <div class="col-md-12">
+  <div class="col-md-8 col-md-offset-2">
     <form action="/update_artist/<%= @artist.id %>" method="post">
       <!-- Hidden input for authenticity token to protect from forgery -->
       <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
@@ -30,7 +34,7 @@
       <!-- Label and input for image -->
       <div class="form-group">
         <label for="image" class="control-label">
-          Image
+          Image URL
         </label>
 
         <input type="text" id="image" name="image" placeholder="Image" class="form-control" value="<%= @artist.image %>">
