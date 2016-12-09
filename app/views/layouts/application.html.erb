@@ -40,21 +40,31 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-          <li><a href="/concerts">My Concerts</a></li>
-          <li><a href="/artists">Artists</a></li>
-          <li><a href="/venues">Venues</a></li>
+          <li><a href="/concerts">
+            <i class="fa fa-book" aria-hidden="true"></i>
+            My Concerts</a>
+          </li>
+          <li><a href="/artists"><i class="fa fa-headphones" aria-hidden="true"></i>
+            Artists</a>
+          </li>
+          <li><a href="/venues">
+            <i class="fa fa-map-marker" aria-hidden="true"></i>
+            Venues</a>
+          </li>
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
           <% if current_user.present? %>
             <li>
               <a href="/users/edit">
+                <i class="fa fa-user" aria-hidden="true"></i>
                 <%= current_user.username %>
               </a>
             </li>
 
             <li>
               <a href="/users/sign_out" data-method="delete" rel="nofollow">
+                <i class="fa fa-sign-out" aria-hidden="true"></i>
                 Sign Out
               </a>
             </li>
