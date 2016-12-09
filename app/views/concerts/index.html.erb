@@ -44,7 +44,7 @@
           </a>
           <% end %>
         </td>
-        <td><%= concert.notes.truncate(20) %></td>
+        <td><%= concert.notes.truncate(16) %></td>
 
         <td>
           <% if current_user == concert.user %>

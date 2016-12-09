@@ -60,7 +60,8 @@
           Notes
         </label>
 
-        <input type="text" id="notes" name="notes" placeholder="Notes" class="form-control" value="<%= @concert.notes %>">
+        <textarea id="notes" name="notes" placeholder="Notes" class="form-control" rows="5"><%= @concert.notes %></textarea>
+        
       </div>
 
       <!-- Label and input for user_id -->
