@@ -1,20 +1,30 @@
-<div class="page-header">
-  <h1>
-    My Concerts
-    <a href="/concerts/new" class="btn btn-lg btn-success">New Concert</a>
-  </h1>
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <div class="jumbotron">
+      <h2>My Concerts</h2>
+    </div>
+  </div>
 </div>
 
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <a href="/concerts/new" class="btn btn-default btn-block">
+      <i class="fa fa-plus">
+      </i>
+    </a>
+    <hr>
+  </div>
+</div>
 
 <div class="row">
-  <div class="col-md-12">
+  <div class="col-md-8 col-md-offset-2">
     <table class="table table-striped table-hover">
       <tr>
         <th>Date</th>
         <th>Artist</th>
         <th>Venue</th>
         <th>Notes</th>
-        <th>Actions</th>
+        <th></th>
       </tr>
 
       <% @concerts.each do |concert| %>
@@ -22,27 +32,32 @@
         <td><%= concert.date.strftime('%B %e, %Y') %></td>
         <td>
           <% if concert.artist.present? %>
-            <a href="/artists/<%= concert.artist.id %>">
-              <%= concert.artist.name %>
-            </a>
+          <a href="/artists/<%= concert.artist.id %>">
+            <%= concert.artist.name %>
+          </a>
           <% end %>
         </td>
         <td>
           <% if concert.venue.present? %>
-            <a href="/venues/<%= concert.venue.id %>">
-              <%= concert.venue.name %>
-            </a>
+          <a href="/venues/<%= concert.venue.id %>">
+            <%= concert.venue.name %>
+          </a>
           <% end %>
         </td>
         <td><%= concert.notes %></td>
 
         <td>
-          <a href="/concerts/<%= concert.id %>" class="btn btn-primary">Show</a>
-
           <% if current_user == concert.user %>
-            <a href="/concerts/<%= concert.id %>/edit" class="btn btn-warning">Edit</a>
-            <a href="/delete_concert/<%= concert.id %>" class="btn btn-danger" rel="nofollow">Delete</a>
+          <a href="/delete_concert/<%= concert.id %>" class="btn btn-danger pull-right" rel="nofollow">
+            <i class="fa fa-trash-o"></i>
+          </a>
+          <a href="/concerts/<%= concert.id %>/edit" class="btn btn-warning pull-right">
+            <i class="fa fa-edit"></i>
+          </a>
           <% end %>
+          <a href="/concerts/<%= concert.id %>" class="btn btn-primary pull-right">
+            <i class="fa fa-search-plus"></i>
+          </a>
         </td>
       </tr>
       <% end %>

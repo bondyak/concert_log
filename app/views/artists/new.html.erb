@@ -8,12 +8,16 @@
   <% end %>
 <% end %>
 
-<div class="page-header">
-  <h3>Add Artist</h3>
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <div class="jumbotron">
+      <h3>Add Artist</h3>
+    </div>
+  </div>
 </div>
 
 <div class="row">
-  <div class="col-md-12">
+  <div class="col-md-8 col-md-offset-2">
     <form action="/create_artist" method="post">
       <!-- Hidden input for authenticity token to protect from forgery -->
       <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
@@ -34,15 +38,6 @@
         </label>
 
         <input type="text" id="image" name="image" placeholder="Image" class="form-control" value="<%= @artist.image %>">
-      </div>
-
-      <!-- Label and input for notes -->
-      <div class="form-group">
-        <label for="notes" class="control-label">
-          Notes
-        </label>
-
-        <input type="text" id="notes" name="notes" placeholder="Notes" class="form-control" value="<%= @artist.notes %>">
       </div>
 
       <button class="btn btn-success">
